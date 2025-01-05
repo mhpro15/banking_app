@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { signIn, signUp } from "@/lib/actions/user.actions";
 import { getLoggedInUser } from "@/lib/appwrite";
 import { parse } from "path";
+import PlaidLink from "./PlaidLink";
 
 const AuthForm = ({ type }: { type: string }) => {
   const router = useRouter();
@@ -32,8 +33,20 @@ const AuthForm = ({ type }: { type: string }) => {
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
+      const userData = {
+        firstName: data.firstName!,
+        lastName: data.lastName!,
+        email: data.email!,
+        password: data.password!,
+        address1: data.address1!,
+        city: data.city!,
+        state: data.state!,
+        ssn: data.ssn!,
+        postalCode: data.postalCode!,
+        dateOfBirth: data.dateOfBirth!,
+      };
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
 
@@ -75,7 +88,9 @@ const AuthForm = ({ type }: { type: string }) => {
         </div>
       </header>
       {user ? (
-        <div className="flex flex-col gap-4"></div>
+        <div className="flex flex-col gap-4">
+          <PlaidLink user={user} variant="primary" />
+        </div>
       ) : (
         <>
           <Form {...form}>
@@ -119,16 +134,23 @@ const AuthForm = ({ type }: { type: string }) => {
                       name="postalCode"
                       label="Postal Code"
                       control={form.control}
-                      placeholder="ex: A1B2C3"
+                      placeholder="ex: 12345"
                     />
                   </div>
-
-                  <CustomInput
-                    name="dateOfBirth"
-                    label="Date of Birth"
-                    control={form.control}
-                    placeholder="yyyy-mm-dd"
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      name="dateOfBirth"
+                      label="Date of Birth"
+                      control={form.control}
+                      placeholder="yyyy-mm-dd"
+                    />
+                    <CustomInput
+                      name="ssn"
+                      label="SSN"
+                      control={form.control}
+                      placeholder="123456789"
+                    />
+                  </div>
                 </>
               )}
 
