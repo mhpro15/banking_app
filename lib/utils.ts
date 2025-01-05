@@ -76,7 +76,6 @@ export function formatAmount(amount: number): string {
   return formatter.format(amount);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseStringify = (value: any) => JSON.parse(JSON.stringify(value));
 
 export const removeSpecialCharacters = (value: string) => {
@@ -138,7 +137,6 @@ export function countTransactionCategories(
   let totalCount = 0;
 
   // Iterate over each transaction
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   transactions &&
     transactions.forEach((transaction) => {
       // Extract the category from the transaction
@@ -209,7 +207,6 @@ export const authFormSchema = (type: string) =>
     postalCode:
       type === "sign-in" ? z.string().optional() : z.string().min(3).max(6),
     dateOfBirth: type === "sign-in" ? z.string().optional() : z.string().min(3),
-    ssn: type === "sign-in" ? z.string().optional() : z.string().min(3),
     // both
     email: z.string().email(),
     password: z.string().min(8),
