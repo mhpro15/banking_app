@@ -12,10 +12,10 @@ declare type SignUpParams = {
   lastName: string;
   address1: string;
   city: string;
-  ssn: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
+  ssn: string;
   email: string;
   password: string;
 };
@@ -32,15 +32,14 @@ declare type User = {
   dwollaCustomerUrl: string;
   dwollaCustomerId: string;
   firstName: string;
-  name: string;
   lastName: string;
+  name: string;
   address1: string;
   city: string;
-  ssn: string;
-  ssn: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
+  ssn: string;
 };
 
 declare type NewUserParams = {
@@ -61,7 +60,7 @@ declare type Account = {
   type: string;
   subtype: string;
   appwriteItemId: string;
-  sharableId: string;
+  shareableId: string;
 };
 
 declare type Transaction = {
@@ -90,7 +89,7 @@ declare type Bank = {
   accessToken: string;
   fundingSourceUrl: string;
   userId: string;
-  sharableId: string;
+  shareableId: string;
 };
 
 declare type AccountTypes =
@@ -132,10 +131,10 @@ declare type NewDwollaCustomerParams = {
   type: string;
   address1: string;
   city: string;
-  ssn: string;
   state: string;
   postalCode: string;
   dateOfBirth: string;
+  ssn: string;
 };
 
 declare interface CreditCardProps {
@@ -158,7 +157,7 @@ declare interface HeaderBoxProps {
 }
 
 declare interface MobileNavProps {
-  user: User<Preferences> | null;
+  user: User;
 }
 
 declare interface PageHeaderProps {
@@ -195,7 +194,6 @@ declare interface AuthFormProps {
 
 declare interface BankDropdownProps {
   accounts: Account[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setValue?: UseFormSetValue<any>;
   otherStyles?: string;
 }
@@ -205,25 +203,25 @@ declare interface BankTabItemProps {
   appwriteItemId?: string;
 }
 
-declare interface TotlaBalanceBoxProps {
+declare interface TotalBalanceBoxProps {
   accounts: Account[];
   totalBanks: number;
   totalCurrentBalance: number;
 }
 
 declare interface FooterProps {
-  user: User | null;
+  user: User;
   type?: "mobile" | "desktop";
 }
 
 declare interface RightSidebarProps {
-  user: User<Preferences> | null;
+  user: User;
   transactions: Transaction[];
   banks: Bank[] & Account[];
 }
 
 declare interface SiderbarProps {
-  user: User<Preferences> | null;
+  user: User;
 }
 
 declare interface RecentTransactionsProps {
@@ -316,7 +314,7 @@ declare interface createBankAccountProps {
   accountId: string;
   bankId: string;
   fundingSourceUrl: string;
-  sharableId: string;
+  shareableId: string;
 }
 
 declare interface getBanksProps {

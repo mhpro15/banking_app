@@ -2,11 +2,16 @@ import Link from "next/link";
 import React from "react";
 import { formatAmount } from "@/lib/utils";
 import Image from "next/image";
+import Copy from "./Copy";
 
 const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
+  console.log("account", account);
   return (
     <div className="flex flex-col">
-      <Link href="/" className="bank-card">
+      <Link
+        href={`/transaction-history/?id=${account.appwriteItemId}`}
+        className="bank-card min-w-[300px]"
+      >
         <div className="bank-card_content">
           <div>
             <h1 className=" text-16 font-semibold text-white">
@@ -22,7 +27,8 @@ const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
               <h2 className="text-12 font-semibold text-white">●●/●●</h2>
             </div>
             <p className="text-14 font-semibold tracking-[1.1px] text-white">
-              ●●●● ●●●● ●●●●<span className="text-16 "> 1234</span>
+              ●●●● ●●●● ●●●●
+              <span className="text-16 font-bold"> {account?.mask}</span>
             </p>
           </article>
         </div>
@@ -44,6 +50,8 @@ const BankCard = ({ account, userName, showBalance }: CreditCardProps) => {
           className="absolute top-0 left-0"
         />
       </Link>
+
+      {showBalance && <Copy title={account?.shareableId} />}
     </div>
   );
 };

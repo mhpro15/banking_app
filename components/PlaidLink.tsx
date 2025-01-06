@@ -1,4 +1,3 @@
-"use client";
 import React, { useCallback, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import {
@@ -11,50 +10,51 @@ import {
   createLinkToken,
   exchangePublicToken,
 } from "@/lib/actions/user.actions";
+import Image from "next/image";
+import { usePrePaidLink } from "@/lib/PrePlaidLink";
 
 const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
-  const router = useRouter();
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const getLinkToken = async () => {
-      const linkToken = await createLinkToken(user);
-      setToken(linkToken);
-    };
-    getLinkToken();
-  }, [user]);
-  const onSuccess = useCallback<PlaidLinkOnSuccess>(
-    async (public_token: string) => {
-      await exchangePublicToken(public_token, user);
-      router.push("/");
-    },
-    [user]
-  );
-  const config: PlaidLinkOptions = {
-    token,
-    onSuccess,
-  };
-
+  const config = usePrePaidLink({ user });
   const { open, ready } = usePlaidLink(config);
-
-  const handleClick = () => {
-    open();
-  };
 
   return (
     <>
       {variant === "primary" ? (
         <Button
-          className="plaidlink-primary"
-          onClick={handleClick}
+          onClick={() => open()}
           disabled={!ready}
+          className="plaidlink-primary"
         >
-          Connet Bank
+          Connect bank
         </Button>
       ) : variant === "ghost" ? (
-        <Button>Connect Bank</Button>
+        <Button
+          onClick={() => open()}
+          variant="ghost"
+          className="plaidlink-ghost"
+        >
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="hiddenl text-[16px] font-semibold text-black-2 xl:block">
+            Connect bank
+          </p>
+        </Button>
       ) : (
-        <Button>Connect Bank</Button>
+        <Button onClick={() => open()} className="plaidlink-default">
+          <Image
+            src="/icons/connect-bank.svg"
+            alt="connect bank"
+            width={24}
+            height={24}
+          />
+          <p className="text-[16px] font-semibold text-black-2 max-xl:hidden">
+            Connect bank
+          </p>
+        </Button>
       )}
     </>
   );
