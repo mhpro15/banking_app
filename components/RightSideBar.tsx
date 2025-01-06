@@ -6,7 +6,7 @@ import BankCard from "./BankCard";
 import { countTransactionCategories } from "@/lib/utils";
 import { Category } from "./Category";
 import PlaidLink from "./PlaidLink";
-import { usePrePaidLink } from "@/lib/PrePlaidLink";
+import { usePrePaidLink } from "@/lib/prePlaidLink";
 import { usePlaidLink } from "react-plaid-link";
 
 const RightSideBar = ({ user, transactions, banks }: RightSidebarProps) => {
